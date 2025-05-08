@@ -23,13 +23,10 @@ Welcome to **CodeSync** – a powerful, lightweight, and browser-based code edit
 - 📁 **Open Local Files**  
   (Coming soon) Load files or entire folders from your local machine using the File System Access API.
 
-- ☁️ **Google Authentication**  
-  Sign in with your Google account to sync and personalize your experience.
+- ☁️ **Authentication**  
+  Sign in with your Google or GitHub account to sync and personalize your experience.
 
-- 💾 **Auto Save to Local Storage**  
-  Your code is saved automatically in the browser so nothing gets lost.
-
-- 👤 **Profile Dropdown**  
+- 👤 **Profile Settings**  
   Manage your profile, settings, and logout with ease.
 
 - 🎨 **Dark Theme**  
@@ -40,9 +37,10 @@ Welcome to **CodeSync** – a powerful, lightweight, and browser-based code edit
 ## 📚 How to Use
 
 1. Visit the live site: [www.codesyncweb.netlify.app](https://www.codesyncweb.netlify.app)
-2. Sign in using your Google account
-3. Create or open a file/project
-4. Start coding!
+2. Navigate to [Try it](https://www.codesyncweb.netlify.app/editor)
+3. Sign in using your Google or GitHub account
+4. Create or open a file/project
+5. Start coding!
 
 ---
 
@@ -56,10 +54,4 @@ Welcome to **CodeSync** – a powerful, lightweight, and browser-based code edit
 
 ---
 
-## 📦 Installation (Dev Mode)
-
-```bash
-git clone https://github.com/yourusername/codesync.git
-cd codesync
-npm install
-npm run dev
+**Created with ❤️ by the CodeSync Team**
