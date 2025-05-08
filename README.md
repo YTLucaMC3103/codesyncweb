@@ -2,7 +2,7 @@
 
 Welcome to **CodeSync** – a powerful, lightweight, and browser-based code editor designed to deliver a fast and seamless development experience from anywhere.
 
-🌐 **Live Demo**: [www.codesyncweb.netlify.app](https://www.codesyncweb.netlify.app)
+🌐 **Live Demo**: [codesyncweb.netlify.app](https://codesyncweb.netlify.app)
 
 ---
 
@@ -36,8 +36,8 @@ Welcome to **CodeSync** – a powerful, lightweight, and browser-based code edit
 
 ## 📚 How to Use
 
-1. Visit the live site: [www.codesyncweb.netlify.app](https://www.codesyncweb.netlify.app)
-2. Navigate to [Try it](https://www.codesyncweb.netlify.app/editor)
+1. Visit the live site: [https://codesyncweb.netlify.app](https://codesyncweb.netlify.app)
+2. Navigate to [Try it](https://codesyncweb.netlify.app/editor)
 3. Sign in using your Google or GitHub account
 4. Create or open a file/project
 5. Start coding!
