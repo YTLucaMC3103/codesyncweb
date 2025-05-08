@@ -216,31 +216,7 @@ function EditorPage({ user }) {
             color: '#777',
             fontSize: '14px',
           }}>
-            {!project || Object.keys(project.files).length === 0 ? (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <p style={{ fontWeight: 'bold' }}>Kein Projekt geöffnet</p>
-                <button style={buttonStyle} onClick={createEmptyFile}>Leeres File erstellen</button>
-                <button style={buttonStyle} onClick={openFolder}>Ordner öffnen</button>
-              </div>
-            ) : (
-              <>
-                <p><strong>{project.name}</strong></p>
-                {Object.keys(project.files).map(filename => (
-                  <div
-                    key={filename}
-                    onClick={() => openFile(filename)}
-                    style={{
-                      cursor: 'pointer',
-                      padding: '5px 0',
-                      fontWeight: filename === currentFile ? 'bold' : 'normal',
-                      color: filename === currentFile ? '#fff' : '#ccc'
-                    }}
-                  >
-                    {filename}
-                  </div>
-                ))}
-              </>
-            )}
+            
           </div>
         )}
 

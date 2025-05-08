@@ -1,12 +1,65 @@
-# React + Vite
+# CodeSync
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to **CodeSync** – a powerful, lightweight, and browser-based code editor designed to deliver a fast and seamless development experience from anywhere.
 
-Currently, two official plugins are available:
+🌐 **Live Demo**: [www.codesyncweb.netlify.app](https://www.codesyncweb.netlify.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🔧 **VS Code-like Interface**  
+  Familiar UI inspired by Visual Studio Code – no learning curve needed!
+
+- 📂 **Multi-File Project Support**  
+  Organize your code in folders, switch between files, and manage project structure easily.
+
+- 🖊️ **Monaco Editor Integration**  
+  Enjoy syntax highlighting, IntelliSense, and smooth editing powered by the Monaco Editor (the same used in VS Code).
+
+- 🧠 **Smart Language Detection**  
+  Automatically detects language from file extension (`.js`, `.ts`, `.py`, `.html`, etc.)
+
+- 📁 **Open Local Files**  
+  (Coming soon) Load files or entire folders from your local machine using the File System Access API.
+
+- ☁️ **Google Authentication**  
+  Sign in with your Google account to sync and personalize your experience.
+
+- 💾 **Auto Save to Local Storage**  
+  Your code is saved automatically in the browser so nothing gets lost.
+
+- 👤 **Profile Dropdown**  
+  Manage your profile, settings, and logout with ease.
+
+- 🎨 **Dark Theme**  
+  Clean, modern dark UI for comfortable coding sessions.
+
+---
+
+## 📚 How to Use
+
+1. Visit the live site: [www.codesyncweb.netlify.app](https://www.codesyncweb.netlify.app)
+2. Sign in using your Google account
+3. Create or open a file/project
+4. Start coding!
+
+---
+
+## 🛠️ Tech Stack
+
+- **React**  
+- **Monaco Editor**  
+- **Firebase Authentication**  
+- **React Router**  
+- **Netlify (for deployment)**
+
+---
+
+## 📦 Installation (Dev Mode)
+
+```bash
+git clone https://github.com/yourusername/codesync.git
+cd codesync
+npm install
+npm run dev
