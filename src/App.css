@@ -3,7 +3,8 @@ body, html {
   padding: 0;
   height: 100%;
   font-family: 'Segoe UI', sans-serif;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .app-container {
@@ -163,4 +164,14 @@ body, html {
 
 .discard-changes-btn:hover {
   background-color: #ccd0d5;
+}
+
+.features {
+  max-width: 250px;
+  text-align: left;
+  transition: transform 0.3s ease-in-out;
+}
+
+.features:hover {
+  transform: scale(1.05);
 }
