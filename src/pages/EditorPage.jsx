@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { VscChromeClose, VscMenu } from 'react-icons/vsc'
-import Editor from '@monaco-editor/react';
-import { auth, provider, signInWithPopup, signOut } from '../firebase';
+import Editor from '@monaco-editor/react'
+import { auth, provider, signInWithPopup, signOut } from '../firebase'
+import Logo from '../assets/icon.png'
 
 const mockProject = {
   name: "CodeSync-Projekt",
@@ -29,7 +30,7 @@ const getLanguageFromFilename = (filename) => {
 
 function EditorPage({ user }) {
   const [project, setProject] = useState(mockProject)
-  const [currentFile, setCurrentFile] = useState("main.js")
+  const [currentFile, setCurrentFile] = useState(null)
   const [code, setCode] = useState(project.files["main.js"])
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -85,6 +86,44 @@ function EditorPage({ user }) {
     if (action === 'logout') handleLogout()
   }
 
+  const createEmptyFile = () => {
+    const newFileName = 'newFile.js';
+    setProject({
+      name: "Neues Projekt",
+      files: { [newFileName]: '' }
+    });
+    setCurrentFile(newFileName);
+    setCode('');
+  };
+  
+  const openMockProject = () => {
+    setProject(mockProject);
+    setCurrentFile("main.js");
+    setCode(mockProject.files["main.js"]);
+  };
+
+  const openFolder = async () => {
+    try {
+      const dirHandle = await window.showDirectoryPicker();
+      const newFiles = {};
+  
+      for await (const [name, handle] of dirHandle.entries()) {
+        if (handle.kind === 'file') {
+          const file = await handle.getFile();
+          const text = await file.text();
+          newFiles[name] = text;
+        }
+      }
+  
+      setProject({ name: dirHandle.name, files: newFiles });
+      const firstFile = Object.keys(newFiles)[0];
+      setCurrentFile(firstFile);
+      setCode(newFiles[firstFile]);
+    } catch (err) {
+      console.error("Ordner konnte nicht geöffnet werden:", err);
+    }
+  };
+
   const buttonStyle = {
     background: '#444',
     border: 'none',
@@ -125,7 +164,7 @@ function EditorPage({ user }) {
         padding: '0 20px',
         fontWeight: 'bold',
         borderBottom: '1px solid #444',
-        backgroundColor: '#333',
+        backgroundColor: '#181818',
       }}>
         CodeSync - {currentFile}
         <button
@@ -170,30 +209,43 @@ function EditorPage({ user }) {
         {isSidebarOpen && (
           <div style={{
             width: '200px',
-            backgroundColor: '#2e2e2e',
+            backgroundColor: '#181818',
             padding: '10px',
             borderRight: '1px solid #444',
-            transition: 'all 0.3s ease-in-out'
+            transition: 'all 0.3s ease-in-out',
+            color: '#777',
+            fontSize: '14px',
           }}>
-            <p><strong>{project.name}</strong></p>
-            {Object.keys(project.files).map(filename => (
-              <div
-                key={filename}
-                onClick={() => openFile(filename)}
-                style={{
-                  cursor: 'pointer',
-                  padding: '5px 0',
-                  fontWeight: filename === currentFile ? 'bold' : 'normal',
-                  color: filename === currentFile ? '#fff' : '#ccc'
-                }}
-              >
-                {filename}
+            {!project || Object.keys(project.files).length === 0 ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <p style={{ fontWeight: 'bold' }}>Kein Projekt geöffnet</p>
+                <button style={buttonStyle} onClick={createEmptyFile}>Leeres File erstellen</button>
+                <button style={buttonStyle} onClick={openFolder}>Ordner öffnen</button>
               </div>
-            ))}
+            ) : (
+              <>
+                <p><strong>{project.name}</strong></p>
+                {Object.keys(project.files).map(filename => (
+                  <div
+                    key={filename}
+                    onClick={() => openFile(filename)}
+                    style={{
+                      cursor: 'pointer',
+                      padding: '5px 0',
+                      fontWeight: filename === currentFile ? 'bold' : 'normal',
+                      color: filename === currentFile ? '#fff' : '#ccc'
+                    }}
+                  >
+                    {filename}
+                  </div>
+                ))}
+              </>
+            )}
           </div>
         )}
 
         <div style={{ flexGrow: 1 }}>
+          {currentFile ? (
           <Editor
             height="100%"
             width="100%"
@@ -206,7 +258,28 @@ function EditorPage({ user }) {
               minimap: { enabled: false },
               automaticLayout: true,
             }}
-          ></Editor>
+          />
+        ) : (
+          <div style={{
+            height: '100%',
+            width: '100%',
+            color: '#bbb',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            fontFamily: 'sans-serif',
+            textAlign: 'center',
+            padding: '20px',
+          }}>
+            <img src={Logo} alt="CodeSync Logo" style={{ width: '200px', marginBottom: '20px', opacity: 0.7 }} />
+            <h2>Willkommen bei <span style={{ color: '#4fc3f7' }}>CodeSync</span></h2>
+            <p style={{ maxWidth: '400px' }}>Wähle eine Datei links aus, um loszulegen.<br />Oder starte ein neues Projekt.</p>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button style={buttonStyle} onClick={createEmptyFile}>Leere Datei erstellen</button>
+              <button style={buttonStyle} onClick={openFolder}>Ordner öffnen</button>
+            </div>
+          </div>)}
         </div>
       </div>
     </div>
