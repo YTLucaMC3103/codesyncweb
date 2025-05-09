@@ -4,6 +4,7 @@ import { VscChromeClose, VscMenu } from 'react-icons/vsc'
 import Editor from '@monaco-editor/react'
 import { auth, provider, signInWithPopup, signOut } from '../firebase'
 import Logo from '../assets/icon.png'
+import SettingsModal from '../components/SettingsModal'
 
 const mockProject = {
   name: "CodeSync-Projekt",
@@ -34,6 +35,10 @@ function EditorPage({ user }) {
   const [code, setCode] = useState(project.files["main.js"])
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const [sliderValue, setSliderValue] = useState(50)
+  const [dropdownValue, setDropdownValue] = useState('light')
+  const [toggleValue, setToggleValue] = useState(false)
   const navigate = useNavigate()
   const profilePic = user?.photoURL || localStorage.getItem('profilePic')
 
@@ -155,7 +160,7 @@ function EditorPage({ user }) {
   }
 
   return (
-    <div style={{ height: '100vh', width: '100vw', margin: 0, backgroundColor: '#1e1e1e', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ height: '100vh', fontFamily: 'Segoe UI, sans-serif', width: '100vw', margin: 0, backgroundColor: '#1e1e1e', display: 'flex', flexDirection: 'column' }}>
       <div style={{
         height: '50px',
         color: '#fff',
@@ -194,10 +199,11 @@ function EditorPage({ user }) {
               {dropdownOpen && (
                 <div style={dropdownStyle}>
                   <div style={dropdownItem} onClick={() => handleDropdownClick('profile')}>Profil</div>
-                  <div style={dropdownItem} onClick={() => alert('Einstellungen (bald verfügbar)')}>Einstellungen</div>
+                  <div style={dropdownItem} onClick={() => setSettingsOpen(true)}>Einstellungen</div>
                   <div style={dropdownItem} onClick={() => handleDropdownClick('logout')}>Logout</div>
                 </div>
               )}
+           <SettingsModal isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} />
             </>
           ) : (
             <button onClick={() => navigate('/login')} style={buttonStyle}>Anmelden</button>
