@@ -2,7 +2,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { VscMenu, VscChromeClose } from 'react-icons/vsc'
-import '../App.css'
+import '../components/Stylesheets/LandingPage.css'
 
 function App() {
   const navigate = useNavigate()
@@ -12,7 +12,7 @@ function App() {
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
 
   return (
-    <div style={{ fontFamily: 'Segoe UI, sans-serif', color: '#1e1e1e', width: '100vw', marginTop: '170px' }}>
+    <div style={{ fontFamily: 'Segoe UI, sans-serif', color: '#1e1e1e', width: '100vw' }}>
       
       {/* HEADER */}
       <header style={{
@@ -24,7 +24,7 @@ function App() {
         color: 'white',
         position: 'fixed',
         top: 0,
-        width: '94%',
+        width: '94vw',
         zIndex: 1000,
         height: '40px'
       }}>
@@ -64,7 +64,7 @@ function App() {
       {sidebarOpen && (
         <aside style={{
           position: 'fixed',
-          top: '60px', // Unterhalb der Navbar
+          top: '60px',
           right: 0,
           height: '100%',
           width: '250px',
@@ -74,7 +74,7 @@ function App() {
           boxShadow: '-2px 0 8px rgba(0,0,0,0.2)',
           zIndex: 999
         }}>
-          <button onClick={toggleSidebar} style={closeButton}>×</button>
+          <VscChromeClose onClick={toggleSidebar} style={closeButton} />
           <ul style={{ listStyle: 'none', padding: 0 }}>
             <li><Link to="/" onClick={toggleSidebar} style={linkStyle}>Home</Link></li>
             <li><Link to="/editor" onClick={toggleSidebar} style={linkStyle}>Editor</Link></li>
@@ -87,9 +87,9 @@ function App() {
         backgroundColor: '#007acc',
         color: 'white',
         padding: '60px 30px',
-        textAlign: 'center'
+        textAlign: 'center',
       }}>
-        <h1 style={{ fontSize: '48px', margin: '0 0 20px', marginTop: '10vh' }}>{t('title')}</h1>
+        <h1 style={{ fontSize: '48px', margin: '0 0 20px' }}>{t('title')}</h1>
         <p style={{ fontSize: '20px', maxWidth: '700px', margin: '0 auto 30px' }}>{t('subtitle')}</p>
         <div style={{ marginTop: '20px' }}>
           <button disabled style={downloadButtonDisabled}>{t('downloadSoon')}</button>
@@ -99,7 +99,7 @@ function App() {
 
       {/* FEATURES */}
       <section style={{ padding: '60px 30px', textAlign: 'center' }}>
-        <h2 style={{ fontSize: '32px', marginBottom: '30px', color: '#ffffff' }}>{t('features')}</h2>
+        <h2 style={{ fontSize: '32px', marginBottom: '30px', color: '#ffffff' }}>{t('featuresHeading')}</h2>
         <div style={{
           display: 'flex',
           justifyContent: 'center',
@@ -107,10 +107,10 @@ function App() {
           flexWrap: 'wrap'
         }}>
           {[
-            { title: "Live-Code-Sharing", desc: "Synchronisiere deinen Code geräteübergreifend, oder teile ihn mit deinen Freunden." },
-            { title: "Multi-Datei-Support", desc: "Organisiere deinen Code in Projekten mit mehreren Dateien." },
-            { title: "Monaco Editor", desc: "Einfach zu verstehende Oberfläche für jeden Nutzer." },
-            { title: "Dark Mode", desc: "Ein Design, das deinen Augen schmeichelt." },
+            { title: t('liveTitle'), desc: t('liveDesc') },
+            { title: t('multiTitle'), desc: t('multiDesc') },
+            { title: t('editorTitle'), desc: t('editorDesc') },
+            { title: t('darkmodeTitle'), desc: t('darkmodeDesc') },
           ].map((f, i) => (
             <div key={i} className="features">
               <h3 style={{ fontSize: '20px', marginBottom: '10px', color: '#007acc' }}>{f.title}</h3>
