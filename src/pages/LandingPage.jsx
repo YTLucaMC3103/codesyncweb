@@ -12,7 +12,7 @@ function App() {
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
 
   return (
-    <div style={{ fontFamily: 'Segoe UI, sans-serif', color: '#1e1e1e', width: '100vw' }}>
+    <div style={{ fontFamily: 'Segoe UI, sans-serif', color: '#1e1e1e', width: '100vw', flexDirection: 'column' }}>
       
       {/* HEADER */}
       <header style={{
@@ -28,7 +28,7 @@ function App() {
         zIndex: 1000,
         height: '40px'
       }}>
-        <div style={{ fontSize: '2vh', fontWeight: 'bold' }}>
+        <div style={{ fontSize: '3vh', fontWeight: 'bold' }}>
           <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
             {t('title')}
           </Link>
@@ -67,12 +67,14 @@ function App() {
           top: '60px',
           right: 0,
           height: '100%',
-          width: '250px',
+          width: '20vw',
           backgroundColor: '#2c2c2c',
           color: 'white',
           padding: '20px',
           boxShadow: '-2px 0 8px rgba(0,0,0,0.2)',
-          zIndex: 999
+          zIndex: 999,
+          flexGrow: 1,
+          display: 'flex'
         }}>
           <VscChromeClose onClick={toggleSidebar} style={closeButton} />
           <ul style={{ listStyle: 'none', padding: 0 }}>
@@ -88,8 +90,9 @@ function App() {
         color: 'white',
         padding: '60px 30px',
         textAlign: 'center',
+        flexGrow: 1
       }}>
-        <h1 style={{ fontSize: '48px', margin: '0 0 20px' }}>{t('title')}</h1>
+        <h1 style={{ fontSize: '48px', margin: '0 0 20px', marginTop: '1vh' }}>{t('title')}</h1>
         <p style={{ fontSize: '20px', maxWidth: '700px', margin: '0 auto 30px' }}>{t('subtitle')}</p>
         <div style={{ marginTop: '20px' }}>
           <button disabled style={downloadButtonDisabled}>{t('downloadSoon')}</button>
@@ -98,7 +101,7 @@ function App() {
       </section>
 
       {/* FEATURES */}
-      <section style={{ padding: '60px 30px', textAlign: 'center' }}>
+      <section style={{ padding: '60px 30px', textAlign: 'center', flexGrow: 1 }}>
         <h2 style={{ fontSize: '32px', marginBottom: '30px', color: '#ffffff' }}>{t('featuresHeading')}</h2>
         <div style={{
           display: 'flex',
@@ -213,7 +216,8 @@ const webButton = {
   borderRadius: '4px',
   cursor: 'pointer',
   fontWeight: 'bold',
-  marginLeft: '2vw'
+  marginLeft: '2vw',
+  marginTop: '1vh'
 }
 
 export default App
