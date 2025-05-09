@@ -1,0 +1,6 @@
+            <h1 style={{ fontSize: '19px', marginBottom: '10px' }}>Kein Projekt geöffnet</h1>
+            <p style={{ marginBottom: '20px' }}>Wähle eine Option aus, um loszulegen:</p>
+              <p style={{ color: '#fff' }}>Erstelle eine neue, leere Datei und speichere sie manuell:</p>
+              <button style={buttonStyle} onClick={() => createEmptyFile()}>Leere Datei erstellen</button>
+              <p style={{ color: '#fff' }}>Oder öffne einen Projektordner:</p>
+              <button style={{ background: '#444', border: 'none', padding: '6px 10px', color: '#fff', cursor: 'pointer', borderRadius: '4px' }} onClick={() => openMockProject()}>Ordner öffnen</button>

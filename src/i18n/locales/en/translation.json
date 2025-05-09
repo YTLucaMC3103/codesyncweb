@@ -1,0 +1,20 @@
+{
+  "title": "CodeSync",
+  "subtitle": "Sync your code — anywhere",
+  "downloadSoon": "Download for Windows (Coming Soon)",
+  "tryOnline": "Try in Browser",
+  "features": "Features",
+  "feature_live": "Live Code Sharing",
+  "feature_live_desc": "Sync your code across devices or share it with friends.",
+  "feature_multi": "Multi-file Support",
+  "feature_multi_desc": "Organize your code in multi-file projects.",
+  "feature_editor": "Monaco Editor",
+  "feature_editor_desc": "An intuitive UI for every user.",
+  "feature_darkmode": "Dark Mode",
+  "feature_darkmode_desc": "A design your eyes will love.",
+  "downloads": "Downloads",
+  "notAvailable": "Not available yet",
+  "comingSoon": "Desktop & mobile app version coming soon.",
+  "openSource": "Open source on ",
+  "footer": "Made with ❤️ by the CodeSync Team."
+}
