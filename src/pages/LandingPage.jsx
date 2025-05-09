@@ -28,15 +28,15 @@ function App() {
         zIndex: 1000,
         height: '40px'
       }}>
-        <div style={{ fontSize: '24px', fontWeight: 'bold' }}>
+        <div style={{ fontSize: '2vh', fontWeight: 'bold' }}>
           <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
             {t('title')}
           </Link>
         </div>
 
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '16px', maxWidth: '100vw' }}>
           <button onClick={() => navigate('/editor')} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }}>
-            {t('tryOnline') || 'Im Web ausprobieren'}
+            {t('tryOnline')}
           </button>
 
           {/* Dropdown Sprachwahl */}
