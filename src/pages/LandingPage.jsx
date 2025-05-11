@@ -12,9 +12,8 @@ function App() {
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
 
   return (
-    <div style={{ fontFamily: 'Segoe UI, sans-serif', color: '#1e1e1e', width: '100vw', flexDirection: 'column' }}>
+    <div style={{ fontFamily: 'Segoe UI, sans-serif', color: '#1e1e1e', width: '100vw' }}>
       
-      {/* HEADER */}
       <header style={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -24,9 +23,9 @@ function App() {
         color: 'white',
         position: 'fixed',
         top: 0,
-        width: '94vw',
         zIndex: 1000,
-        height: '40px'
+        height: '40px',
+        width: '100%'
       }}>
         <div style={{ fontSize: '3vh', fontWeight: 'bold' }}>
           <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
@@ -34,12 +33,7 @@ function App() {
           </Link>
         </div>
 
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '16px', maxWidth: '100vw' }}>
-          <button onClick={() => navigate('/editor')} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }}>
-            {t('tryOnline')}
-          </button>
-
-          {/* Dropdown Sprachwahl */}
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '16px', maxWidth: '100vw', marginRight: '2vw' }}>
           <select
             onChange={(e) => i18n.changeLanguage(e.target.value)}
             value={i18n.language}

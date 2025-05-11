@@ -160,7 +160,7 @@ function EditorPage({ user }) {
   }
 
   return (
-    <div style={{ height: '100vh', fontFamily: 'Segoe UI, sans-serif', width: '100vw', margin: 0, backgroundColor: '#1e1e1e', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ height: '100vh', fontFamily: 'Segoe UI, sans-serif', width: '100vw', margin: 0, backgroundColor: '#1e1e1e', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       <div style={{
         height: '50px',
         color: '#fff',
@@ -237,7 +237,7 @@ function EditorPage({ user }) {
             onChange={handleChange}
             options={{
               fontSize: 16,
-              minimap: { enabled: false },
+              minimap: { enabled: true },
               automaticLayout: true,
             }}
           />
