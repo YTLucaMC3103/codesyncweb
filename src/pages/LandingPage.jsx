@@ -33,7 +33,7 @@ function App() {
           </Link>
         </div>
 
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '16px', maxWidth: '100vw', marginRight: '2vw' }}>
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '16px', maxWidth: '100vw', marginRight: '3%' }}>
           <select
             onChange={(e) => i18n.changeLanguage(e.target.value)}
             value={i18n.language}
