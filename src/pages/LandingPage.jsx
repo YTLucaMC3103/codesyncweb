@@ -8,24 +8,23 @@ function App() {
   const navigate = useNavigate()
   const { i18n, t } = useTranslation()
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const isMobile = window.innerWidth <= 768;
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
 
   return (
-    <div style={{ fontFamily: 'Segoe UI, sans-serif', color: '#1e1e1e', width: '100vw' }}>
+    <div style={{ fontFamily: 'Segoe UI, sans-serif', color: '#1e1e1e', width: 'auto' }}>
       
       <header style={{
-        display: 'flex',
+        borderBottom: '1px solid #444',
         justifyContent: 'space-between',
+        display: 'flex',
         alignItems: 'center',
-        padding: '10px 20px',
+        padding: '6px 6px',
         backgroundColor: '#1e1e1e',
         color: 'white',
-        position: 'fixed',
-        top: 0,
-        zIndex: 1000,
         height: '40px',
-        width: '100%'
+        width: '100vw',
       }}>
         <div style={{ fontSize: '3vh', fontWeight: 'bold' }}>
           <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
@@ -33,7 +32,7 @@ function App() {
           </Link>
         </div>
 
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '16px', maxWidth: '100vw', marginRight: '3%' }}>
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '16px', maxWidth: '100vw' }}>
           <select
             onChange={(e) => i18n.changeLanguage(e.target.value)}
             value={i18n.language}
@@ -42,6 +41,7 @@ function App() {
               border: '1px solid white',
               color: 'white',
               padding: '6px 10px',
+              marginRight: isMobile ? '7vw' : '2vw',
               borderRadius: '4px',
               cursor: 'pointer'
             }}
@@ -50,39 +50,14 @@ function App() {
             <option value="en">🇬🇧 English</option>
           </select>
 
-          <button onClick={toggleSidebar} style={menuButton}>☰</button>
         </nav>
       </header>
-
-      {/* SIDEBAR */}
-      {sidebarOpen && (
-        <aside style={{
-          position: 'fixed',
-          top: '60px',
-          right: 0,
-          height: '100%',
-          width: '20vw',
-          backgroundColor: '#2c2c2c',
-          color: 'white',
-          padding: '20px',
-          boxShadow: '-2px 0 8px rgba(0,0,0,0.2)',
-          zIndex: 999,
-          flexGrow: 1,
-          display: 'flex'
-        }}>
-          <VscChromeClose onClick={toggleSidebar} style={closeButton} />
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            <li><Link to="/" onClick={toggleSidebar} style={linkStyle}>Home</Link></li>
-            <li><Link to="/editor" onClick={toggleSidebar} style={linkStyle}>Editor</Link></li>
-          </ul>
-        </aside>
-      )}
 
       {/* HERO */}
       <section style={{
         backgroundColor: '#007acc',
         color: 'white',
-        padding: '60px 30px',
+        padding: '20px 30px',
         textAlign: 'center',
         flexGrow: 1
       }}>
