@@ -16,5 +16,14 @@
   "notAvailable": "Noch nicht verfügbar",
   "comingSoon": "Desktop & Mobile App Version erscheinen bald.",
   "openSource": "Open Source auf ",
-  "footer": "Mit ❤️ gemacht vom CodeSync Team."
+  "footer": "Mit ❤️ gemacht vom CodeSync Team.",
+  "welcome": "Willkommen bei ",
+  "upperEditorInstruction": "Wähle eine Datei links aus, um loszulegen.",
+  "lowerEditorInstruction": "Oder starte ein neues Projekt.",
+  "createFile": "Leere Datei erstellen",
+  "openFolder": "Ordner öffnen",
+  "profile": "Profil",
+  "settings": "Einstellungen",
+  "logout": "Ausloggen",
+  "login": "Einloggen"
 }

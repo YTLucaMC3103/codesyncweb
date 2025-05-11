@@ -16,5 +16,14 @@
   "notAvailable": "Not available yet",
   "comingSoon": "Desktop & mobile app version coming soon.",
   "openSource": "Open source on ",
-  "footer": "Made with ❤️ by the CodeSync Team."
+  "footer": "Made with ❤️ by the CodeSync Team.",
+  "welcome": "Welcome to ",
+  "upperEditorInstruction": "Select a file on the left to get started.",
+  "lowerEditorInstruction": "Or start a new project.",
+  "createFile": "Create new File",
+  "openFolder": "Open Folder",
+  "profile": "Profile",
+  "settings": "Settings",
+  "logout": "Logout",
+  "login": "Login"
 }

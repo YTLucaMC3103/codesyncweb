@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { VscChromeClose, VscMenu } from 'react-icons/vsc'
 import Editor from '@monaco-editor/react'
 import { auth, provider, signInWithPopup, signOut } from '../firebase'
 import Logo from '../assets/icon.png'
 import SettingsModal from '../components/SettingsModal'
+import { useTranslation } from 'react-i18next'
 
 const mockProject = {
   name: "CodeSync-Projekt",
@@ -39,12 +40,19 @@ function EditorPage({ user }) {
   const [sliderValue, setSliderValue] = useState(50)
   const [dropdownValue, setDropdownValue] = useState('light')
   const [toggleValue, setToggleValue] = useState(false)
+  const [darkMode, setDarkMode] = useState(true)
+  const [transitioning, setTransitioning] = useState(false)
   const navigate = useNavigate()
+  const editorRef = useRef(null)
   const profilePic = user?.photoURL || localStorage.getItem('profilePic')
+  const { i18n, t } = useTranslation()
 
   useEffect(() => {
     const savedCode = localStorage.getItem('codesync_code')
+    const savedDarkMode = localStorage.getItem('darkMode')
+
     if (savedCode) setCode(savedCode)
+    if (savedDarkMode !== null) setDarkMode(savedDarkMode === 'true')
   }, [])
 
   useEffect(() => {
@@ -54,6 +62,21 @@ function EditorPage({ user }) {
   const openFile = (filename) => {
     setCurrentFile(filename)
     setCode(project.files[filename])
+  }
+  
+  const toggleDarkMode = () => {
+    setDarkMode(prev => {
+      localStorage.setItem('darkMode', !prev);
+      return !prev;
+    });
+  }
+
+  const handleDarkModeToggle = () => {
+    setTransitioning(true)
+    setTimeout(() => {
+      setDarkMode(prev => !prev)
+      setTransitioning(false)
+    }, 300)
   }
 
   const handleChange = (value) => {
@@ -160,27 +183,27 @@ function EditorPage({ user }) {
   }
 
   return (
-    <div style={{ height: '100vh', fontFamily: 'Segoe UI, sans-serif', width: '100vw', margin: 0, backgroundColor: '#1e1e1e', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <div style={{ height: '100vh', fontFamily: 'Segoe UI, sans-serif', width: '100vw', margin: 0, backgroundColor: darkMode ? '#1e1e1e' : '#f5f5f5', display: 'flex', flexDirection: 'column', overflow: 'hidden', transition: 'background-color 0.4s ease, color 0.4s ease' }}>
       <div style={{
         height: '50px',
-        color: '#fff',
+        color: darkMode ? '#fff' : '#000',
         display: 'flex',
         alignItems: 'center',
         padding: '0 20px',
         fontWeight: 'bold',
         borderBottom: '1px solid #444',
-        backgroundColor: '#181818',
+        backgroundColor: darkMode ? '#181818' : '#e7e7e7',
       }}>
         CodeSync - {currentFile}
         <button
           style={{
             background: 'none',
             border: 'none',
-            color: 'white',
+            color: darkMode ? '#fff' : '#000',
             fontSize: '18px',
             cursor: 'pointer',
             marginLeft: 'auto',
-            padding: '5px 10px',
+            padding: '5px 10px'
           }}
           onClick={toggleSidebar}
         >
@@ -198,15 +221,20 @@ function EditorPage({ user }) {
               />
               {dropdownOpen && (
                 <div style={dropdownStyle}>
-                  <div style={dropdownItem} onClick={() => handleDropdownClick('profile')}>Profil</div>
-                  <div style={dropdownItem} onClick={() => setSettingsOpen(true)}>Einstellungen</div>
-                  <div style={dropdownItem} onClick={() => handleDropdownClick('logout')}>Logout</div>
+                  <div style={dropdownItem} onClick={() => handleDropdownClick('profile')}>{t('profile')}</div>
+                  <div style={dropdownItem} onClick={() => setSettingsOpen(true)}>{t('settings')}</div>
+                  <div style={dropdownItem} onClick={() => handleDropdownClick('logout')}>{t('logout')}</div>
                 </div>
               )}
-           <SettingsModal isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} />
+           <SettingsModal
+            isOpen={settingsOpen}
+            onClose={() => setSettingsOpen(false)} 
+            darkMode={darkMode}
+            setDarkMode={setDarkMode}
+          />
             </>
           ) : (
-            <button onClick={() => navigate('/login')} style={buttonStyle}>Anmelden</button>
+            <button onClick={() => navigate('/login')} style={buttonStyle}>{t('login')}</button>
           )}
         </div>
       </div>
@@ -215,7 +243,7 @@ function EditorPage({ user }) {
         {isSidebarOpen && (
           <div style={{
             width: '200px',
-            backgroundColor: '#181818',
+            backgroundColor: darkMode ? '#181818' : '#e7e7e7',
             padding: '10px',
             borderRight: '1px solid #444',
             transition: 'all 0.3s ease-in-out',
@@ -226,43 +254,54 @@ function EditorPage({ user }) {
           </div>
         )}
 
-        <div style={{ flexGrow: 1 }}>
-          {currentFile ? (
-          <Editor
-            height="100%"
-            width="100%"
-            language={getLanguageFromFilename(currentFile)}
-            theme="vs-dark"
-            value={code || ''}
-            onChange={handleChange}
-            options={{
-              fontSize: 16,
-              minimap: { enabled: true },
-              automaticLayout: true,
-            }}
-          />
-        ) : (
-          <div style={{
-            height: '100%',
-            width: '100%',
-            color: '#bbb',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            fontFamily: 'sans-serif',
-            textAlign: 'center',
-            padding: '20px',
-          }}>
-            <img src={Logo} alt="CodeSync Logo" style={{ width: '200px', marginBottom: '20px', opacity: 0.7 }} />
-            <h2>Willkommen bei <span style={{ color: '#4fc3f7' }}>CodeSync</span></h2>
-            <p style={{ maxWidth: '400px' }}>Wähle eine Datei links aus, um loszulegen.<br />Oder starte ein neues Projekt.</p>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <button style={buttonStyle} onClick={createEmptyFile}>Leere Datei erstellen</button>
-              <button style={buttonStyle} onClick={openFolder}>Ordner öffnen</button>
-            </div>
-          </div>)}
-        </div>
+<div
+  style={{
+    flexGrow: 1,
+    position: 'relative',
+    transition: 'opacity 0.3s ease',
+    opacity: transitioning ? 0.3 : 1,
+  }}
+>
+  {currentFile ? (
+    <Editor
+      height="100%"
+      width="100%"
+      language={getLanguageFromFilename(currentFile)}
+      theme={darkMode ? 'vs-dark' : 'light'}
+      value={code || ''}
+      onChange={handleChange}
+      onMount={(editor) => {
+        editorRef.current = editor
+      }}
+      options={{
+        fontSize: 16,
+        minimap: { enabled: true },
+        automaticLayout: true,
+      }}
+    />
+  ) : (
+    <div style={{
+      height: '100%',
+      width: '100%',
+      color: darkMode ? '#bbb' : '#444',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+      fontFamily: 'sans-serif',
+      textAlign: 'center',
+      padding: '20px',
+    }}>
+      <img src={Logo} alt="CodeSync Logo" style={{ width: '200px', marginBottom: '20px', opacity: 0.7 }} />
+      <h2>{t('welcome')} <span style={{ color: '#4fc3f7' }}>CodeSync</span></h2>
+      <p style={{ maxWidth: '400px' }}>{t('upperEditorInstruction')}<br />{t('lowerEditorInstruction')}</p>
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <button style={buttonStyle} onClick={createEmptyFile}>{t('createFile')}</button>
+        <button style={buttonStyle} onClick={openFolder}>{t('openFolder')}</button>
+      </div>
+    </div>
+  )}
+</div>
       </div>
     </div>
   )
